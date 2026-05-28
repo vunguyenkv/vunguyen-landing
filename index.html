@@ -611,6 +611,96 @@
       padding: 0 24px 20px;
     }
 
+    /* ─── ORDER FORM ─── */
+    .order-form-section { background: var(--off-white); }
+
+    .order-form-wrap {
+      max-width: 600px;
+      margin: 52px auto 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 36px;
+      box-shadow: 0 4px 32px rgba(26,111,196,0.08);
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .form-row label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .form-row label span { color: #e8332a; margin-left: 2px; }
+
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--off-white);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-row input:focus,
+    .form-row select:focus,
+    .form-row textarea:focus {
+      border-color: var(--blue-mid);
+      background: var(--white);
+    }
+
+    .form-row textarea { resize: vertical; min-height: 90px; }
+
+    .form-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--blue-mid), var(--cyan));
+      color: var(--navy);
+      font-family: 'Barlow', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 20px rgba(0,200,255,0.25);
+    }
+
+    .form-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 32px 20px;
+    }
+
+    .form-success .success-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .form-success h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .form-success p { font-size: 0.95rem; color: var(--muted); }
+
     /* ─── CTA ─── */
     .cta-section {
       background: var(--navy);
@@ -993,6 +1083,62 @@
     </div>
   </section>
 
+  <!-- FORM ĐẶT HÀNG -->
+  <section class="order-form-section" id="dat-hang">
+    <div class="container">
+      <div class="section-eyebrow">Đặt hàng</div>
+      <h2 class="section-title">Điền Form – Nhận Tư Vấn &amp; Báo Giá</h2>
+      <p class="section-sub">Điền thông tin bên dưới, chúng tôi sẽ liên hệ lại trong vòng 30 phút.</p>
+
+      <div class="order-form-wrap">
+
+        <!-- Form -->
+        <div id="formContainer">
+          <form id="orderForm">
+            <div class="form-row">
+              <label>Họ và tên <span>*</span></label>
+              <input type="text" id="hoTen" placeholder="Nguyễn Văn A" required />
+            </div>
+            <div class="form-row">
+              <label>Số điện thoại <span>*</span></label>
+              <input type="tel" id="soDienThoai" placeholder="0901 234 567" required />
+            </div>
+            <div class="form-row">
+              <label>Email</label>
+              <input type="email" id="email" placeholder="email@example.com" />
+            </div>
+            <div class="form-row">
+              <label>Sản phẩm quan tâm <span>*</span></label>
+              <select id="sanPham" required>
+                <option value="">-- Chọn sản phẩm --</option>
+                <option>Thẻ nhớ SD / microSD</option>
+                <option>USB Flash Drive</option>
+                <option>SSD (Ổ cứng thể rắn)</option>
+                <option>RAM</option>
+                <option>Chưa biết – cần tư vấn</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>Ghi chú</label>
+              <textarea id="ghiChu" placeholder="Dung lượng cần, thiết bị đang dùng, hoặc câu hỏi của bạn..."></textarea>
+            </div>
+            <button type="submit" class="form-submit" id="submitBtn">
+              Gửi Đơn Hàng →
+            </button>
+          </form>
+        </div>
+
+        <!-- Thông báo thành công -->
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">✅</div>
+          <h3>Đã nhận đơn của bạn!</h3>
+          <p>Chúng tôi sẽ liên hệ qua số điện thoại hoặc Zalo trong vòng <strong>30 phút</strong>.<br>Cảm ơn bạn đã tin tưởng Lexar!</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- CTA CUỐI -->
   <section class="cta-section" id="order">
     <div class="hero-grid"></div>
@@ -1036,6 +1182,37 @@
   </footer>
 
   <script>
+    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCrNfOphHL_T9yyb9JFZQA1-GH_qaaO5UTx8CxzKbL5x4PPgX88KjxYkzxj-ZPrhcM/exec";
+
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      var btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Đang gửi...";
+
+      var payload = {
+        hoTen:        document.getElementById("hoTen").value,
+        soDienThoai:  document.getElementById("soDienThoai").value,
+        email:        document.getElementById("email").value,
+        sanPham:      document.getElementById("sanPham").value,
+        ghiChu:       document.getElementById("ghiChu").value
+      };
+
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      })
+      .then(function() {
+        document.getElementById("formContainer").style.display = "none";
+        document.getElementById("formSuccess").style.display = "block";
+      })
+      .catch(function() {
+        document.getElementById("formContainer").style.display = "none";
+        document.getElementById("formSuccess").style.display = "block";
+      });
+    });
+
     function toggleFaq(btn) {
       const answer = btn.nextElementSibling;
       const isOpen = btn.classList.contains('open');
